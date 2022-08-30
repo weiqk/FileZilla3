@@ -1,1 +1,2 @@
 cmake-build-debug
+/vendor/libfilezilla/lib/windows/version.rc

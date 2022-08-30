@@ -27,10 +27,11 @@ file(GLOB SRC_WXFILEMAN ${CMAKE_CURRENT_SOURCE_DIR}/engine/*.cpp)
 #file(GLOB SRC_WXFILEMAN_INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/interface/*.cpp)
 
 add_subdirectory(interface)
-#list(APPEND ${SRC_WXFILEMAN} ${SRC_WXFILEMAN_INTERFACE})
+#list(APPEND SRC_WXFILEMAN ${SRC_WXFILEMAN_INTERFACE})
+#message(FATAL_ERROR ${SRC_WXFILEMAN})
 
-# windows
-add_executable(wxFileMan WIN32 ${SRC_WXFILEMAN_COMMONUI} ${SRC_WXFILEMAN} )
+#add_executable(wxFileMan WIN32 ${SRC_WXFILEMAN_COMMONUI} ${SRC_WXFILEMAN} )
+add_library(wxFileMan STATIC ${SRC_WXFILEMAN_COMMONUI} ${SRC_WXFILEMAN} )
 
 # 编译和链接选项
 if(MSVC)
@@ -56,12 +57,12 @@ target_compile_definitions(wxFileMan PRIVATE BUILDING_PLUGIN)
 
 # 链接库文件
 #target_link_libraries(wxFileMan PRIVATE liteblocks txml squirrel wx)
-target_link_libraries(wxFileMan PRIVATE pugixml Comctl32)
+target_link_libraries(wxFileMan PRIVATE pugixml Comctl32 fz )
 
 set_target_properties(wxFileMan PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
 
 # Dependencies
-add_dependencies(wxFileMan pugixml)
+add_dependencies(wxFileMan pugixml wxInterface fz)
 
 set_target_properties(wxFileMan PROPERTIES OUTPUT_NAME "wxFileMan")
 #set_target_properties(wxFileMan PROPERTIES PREFIX "")
