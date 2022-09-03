@@ -2,3 +2,10 @@ cmake-build-debug
 /vendor/libfilezilla/lib/windows/version.rc
 /cmake-build-debug-mingw/vendor/libfilezilla/CMakeFiles/fz.dir/lib/*.obj
 /vendor/libfilezilla/lib/libfilezilla/version.hpp
+/config
+/cmake-build-debug-mingw
+/autom4te.cache
+/m4/libtool.m4
+/m4/lt~obsolete.m4
+/m4/*.m4
+/src/fzshellext/autom4te.cache
