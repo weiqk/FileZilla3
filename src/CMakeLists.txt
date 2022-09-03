@@ -1,71 +1,80 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.16.0 FATAL_ERROR)
 
+#set(CMAKE_SYSTEM_VERSION 10.0 CACHE STRING "" FORCE)
 
-#include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include")
+project(FileZilla CXX)
 
+################################################################################
+# Set target arch type if empty. Visual studio solution generator provides it.
+################################################################################
+if(NOT CMAKE_VS_PLATFORM_NAME)
+    set(CMAKE_VS_PLATFORM_NAME "x64")
+endif()
+message("${CMAKE_VS_PLATFORM_NAME} architecture in use")
 
-
-add_subdirectory(commonui)
-add_subdirectory(dbus)
-add_subdirectory(engine)
-#include_directories(src/engine/ftp)
-#include_directories(src/engine/http)
-#include_directories(src/engine/sftp)
-#include_directories(src/engine/storj)
-add_subdirectory(fzshellext)
-
-
-#include_directories(src/interface/settings)
-#include_directories(src/interface/wxext)
-add_subdirectory(pugixml)
-add_subdirectory(putty)
-
-add_subdirectory(storj)
-
-file(GLOB SRC_WXFILEMAN_COMMONUI ${CMAKE_CURRENT_SOURCE_DIR}/commonui/*.cpp)
-file(GLOB SRC_WXFILEMAN ${CMAKE_CURRENT_SOURCE_DIR}/engine/*.cpp)
-#file(GLOB SRC_WXFILEMAN_INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/interface/*.cpp)
-
-add_subdirectory(interface)
-#list(APPEND SRC_WXFILEMAN ${SRC_WXFILEMAN_INTERFACE})
-#message(FATAL_ERROR ${SRC_WXFILEMAN})
-
-#add_executable(wxFileMan WIN32 ${SRC_WXFILEMAN_COMMONUI} ${SRC_WXFILEMAN} )
-add_library(wxFileMan STATIC ${SRC_WXFILEMAN_COMMONUI} ${SRC_WXFILEMAN} )
-
-# 编译和链接选项
-if(MSVC)
-elseif(MINGW)
-    # 编译选项
-
-    # Link Options
-    target_link_options(wxFileMan PRIVATE "-Wl,--enable-auto-import")
-    target_link_options(wxFileMan PRIVATE "-Wl,--no-undefined")
-    target_include_directories(wxFileMan PRIVATE "D:/tools/dev/codeblocks/installed/x64-mingw-static/include")
-    target_link_directories(wxFileMan PRIVATE "${PROJECT_SOURCE_DIR}/3rdparty/exchndl/win64/lib")
+if(NOT ("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x64"))
+    #message(FATAL_ERROR "${CMAKE_VS_PLATFORM_NAME} arch is not supported!")
 endif()
 
-# include directory
-target_include_directories(wxFileMan PRIVATE "${PROJECT_SOURCE_DIR}")
-target_include_directories(wxFileMan PRIVATE "${PROJECT_SOURCE_DIR}/include/scripting/include")
+################################################################################
+# Global configuration types
+################################################################################
+set(CMAKE_CONFIGURATION_TYPES
+    "Debug"
+    "Release"
+    CACHE STRING "" FORCE
+)
 
-# define 宏定义
-target_compile_definitions(wxFileMan PRIVATE BUILDING_PLUGIN)
+################################################################################
+# Global compiler options
+################################################################################
+if(MSVC)
+    # remove default flags provided with CMake for MSVC
+    set(CMAKE_CXX_FLAGS "")
+    set(CMAKE_CXX_FLAGS_DEBUG "")
+    set(CMAKE_CXX_FLAGS_RELEASE "")
+endif()
 
+################################################################################
+# Global linker options
+################################################################################
+if(MSVC)
+    # remove default flags provided with CMake for MSVC
+    set(CMAKE_EXE_LINKER_FLAGS "")
+    set(CMAKE_MODULE_LINKER_FLAGS "")
+    set(CMAKE_SHARED_LINKER_FLAGS "")
+    set(CMAKE_STATIC_LINKER_FLAGS "")
+    set(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS}")
+    set(CMAKE_MODULE_LINKER_FLAGS_DEBUG "${CMAKE_MODULE_LINKER_FLAGS}")
+    set(CMAKE_SHARED_LINKER_FLAGS_DEBUG "${CMAKE_SHARED_LINKER_FLAGS}")
+    set(CMAKE_STATIC_LINKER_FLAGS_DEBUG "${CMAKE_STATIC_LINKER_FLAGS}")
+    set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS}")
+    set(CMAKE_MODULE_LINKER_FLAGS_RELEASE "${CMAKE_MODULE_LINKER_FLAGS}")
+    set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS}")
+    set(CMAKE_STATIC_LINKER_FLAGS_RELEASE "${CMAKE_STATIC_LINKER_FLAGS}")
+endif()
 
-# 链接目录
+################################################################################
+# Nuget packages function stub.
+################################################################################
+function(use_package TARGET PACKAGE VERSION)
+    message(WARNING "No implementation of use_package. Create yours. "
+                    "Package \"${PACKAGE}\" with version \"${VERSION}\" "
+                    "for target \"${TARGET}\" is ignored!")
+endfunction()
 
-# 链接库文件
-#target_link_libraries(wxFileMan PRIVATE liteblocks txml squirrel wx)
-target_link_libraries(wxFileMan PRIVATE pugixml Comctl32 fz )
+################################################################################
+# Common utils
+################################################################################
+include(CMake/Utils.cmake)
 
-set_target_properties(wxFileMan PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
+################################################################################
+# Additional Global Settings(add specific info there)
+################################################################################
+include(CMake/GlobalSettingsInclude.cmake OPTIONAL)
 
-# Dependencies
-add_dependencies(wxFileMan pugixml wxInterface fz)
-
-set_target_properties(wxFileMan PROPERTIES OUTPUT_NAME "wxFileMan")
-#set_target_properties(wxFileMan PROPERTIES PREFIX "")
-install(TARGETS wxFileMan DESTINATION /)
-
+add_subdirectory(commonui)
+add_subdirectory(engine)
+add_subdirectory(interface)
+add_subdirectory(pugixml)
 

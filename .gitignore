@@ -1,2 +1,4 @@
 cmake-build-debug
 /vendor/libfilezilla/lib/windows/version.rc
+/cmake-build-debug-mingw/vendor/libfilezilla/CMakeFiles/fz.dir/lib/*.obj
+/vendor/libfilezilla/lib/libfilezilla/version.hpp

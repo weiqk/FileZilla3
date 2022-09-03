@@ -15,6 +15,7 @@ endif()
 string(TIMESTAMP vRelease "%y.%m.%d")
 string(REPLACE ".0" "." vRelease ${vRelease})
 #add_compile_definitions(RELEASE="${vRelease}")
+add_compile_definitions(FZ_MANUALUPDATECHECK)
 
 set (PACKAGE_VERSION_MAJOR 1)
 set (PACKAGE_VERSION_MINOR 0)
@@ -83,8 +84,5 @@ include_directories(${PROJECT_SOURCE_DIR}/vendor/libfilezilla/lib)
 
 add_subdirectory(vendor)
 add_subdirectory(src)
-
-
-
 
 add_executable(wxMain wxMain.cpp)

@@ -1,261 +1,285 @@
-cmake_minimum_required(VERSION 3.10)
+set(PROJECT_NAME FileZilla)
 
-#list(APPEND SRC_WXFILEMAN buildinfo.cpp))
-#list(APPEND SRC_INTERFACE buildinfo.cpp))
+################################################################################
+# Source groups
+################################################################################
+set(Headers
+    "aboutdialog.h"
+    "asksavepassworddialog.h"
+    "asyncrequestqueue.h"
+    "aui_notebook_ex.h"
+    "auto_ascii_files.h"
+    "bookmarks_dialog.h"
+    "buildinfo.h"
+    "chmoddialog.h"
+    "clearprivatedata.h"
+    "cmdline.h"
+    "commandqueue.h"
+    "conditionaldialog.h"
+    "context_control.h"
+    "customheightlistctrl.h"
+    "defaultfileexistsdlg.h"
+    "dialogex.h"
+    "dndobjects.h"
+    "dragdropmanager.h"
+    "drop_target_ex.h"
+    "edithandler.h"
+    "encoding_converter.h"
+    "export.h"
+    "file_utils.h"
+    "fileexistsdlg.h"
+    "filelist_statusbar.h"
+    "filelistctrl.h"
+    "filezillaapp.h"
+    "filter_conditions_dialog.h"
+    "filter_manager.h"
+    "filteredit.h"
+    "fzputtygen_interface.h"
+    "graphics.h"
+    "import.h"
+    "infotext.h"
+    "inputdialog.h"
+    "led.h"
+    "list_search_panel.h"
+    "listctrlex.h"
+    "listingcomparison.h"
+    "local_recursive_operation.h"
+    "locale_initializer.h"
+    "LocalListView.h"
+    "LocalTreeView.h"
+    "loginmanager.h"
+    "Mainfrm.h"
+    "manual_transfer.h"
+    "menu_bar.h"
+    "msgbox.h"
+    "netconfwizard.h"
+    "option_change_event_handler.h"
+    "Options.h"
+    "overlay.h"
+    "power_management.h"
+    "queue.h"
+    "queue_storage.h"
+    "QueueView.h"
+    "queueview_failed.h"
+    "queueview_successful.h"
+    "quickconnectbar.h"
+    "recentserverlist.h"
+    "recursive_operation_status.h"
+    "remote_recursive_operation.h"
+    "RemoteListView.h"
+    "RemoteTreeView.h"
+    "search.h"
+    "serverdata.h"
+    "settings/optionspage.h"
+    "settings/optionspage_connection.h"
+    "settings/optionspage_connection_active.h"
+    "settings/optionspage_connection_ftp.h"
+    "settings/optionspage_connection_passive.h"
+    "settings/optionspage_connection_sftp.h"
+    "settings/optionspage_dateformatting.h"
+    "settings/optionspage_debug.h"
+    "settings/optionspage_edit.h"
+    "settings/optionspage_edit_associations.h"
+    "settings/optionspage_fileexists.h"
+    "settings/optionspage_filelists.h"
+    "settings/optionspage_filetype.h"
+    "settings/optionspage_ftpproxy.h"
+    "settings/optionspage_interface.h"
+    "settings/optionspage_language.h"
+    "settings/optionspage_logging.h"
+    "settings/optionspage_passwords.h"
+    "settings/optionspage_proxy.h"
+    "settings/optionspage_sizeformatting.h"
+    "settings/optionspage_themes.h"
+    "settings/optionspage_transfer.h"
+    "settings/optionspage_updatecheck.h"
+    "settings/settingsdialog.h"
+    "sftp_crypt_info_dlg.h"
+    "sitemanager.h"
+    "sitemanager_controls.h"
+    "sitemanager_dialog.h"
+    "sitemanager_site.h"
+    "sizeformatting.h"
+    "speedlimits_dialog.h"
+    "splitter.h"
+    "state.h"
+    "statusbar.h"
+    "statuslinectrl.h"
+    "StatusView.h"
+    "storj_key_interface.h"
+    "systemimagelist.h"
+    "textctrlex.h"
+    "themeprovider.h"
+    "timeformatting.h"
+    "toolbar.h"
+    "treectrlex.h"
+    "update_dialog.h"
+    "verifycertdialog.h"
+    "verifyhostkeydialog.h"
+    "view.h"
+    "viewheader.h"
+    "volume_enumerator.h"
+    "welcome_dialog.h"
+    "window_state_manager.h"
+    "wrapengine.h"
+    "wxext/spinctrlex.h"
+    "wxfilesystem_blob_handler.h"
+    "xh_text_ex.h"
+    "xmlfunctions.h"
+    "xrc_helper.h"
+)
 
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_connection.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_connection.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_connection_active.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_connection_active.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_connection_ftp.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_connection_ftp.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_connection_passive.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_connection_passive.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_connection_sftp.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_connection_sftp.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_dateformatting.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_dateformatting.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_debug.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_debug.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_edit.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_edit.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_edit_associations.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_edit_associations.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_fileexists.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_fileexists.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_filelists.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_filelists.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_filetype.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_filetype.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_ftpproxy.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_ftpproxy.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_interface.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_interface.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_language.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_language.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_logging.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_logging.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_passwords.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_passwords.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_proxy.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_proxy.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_sizeformatting.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_sizeformatting.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_themes.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_themes.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_transfer.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_transfer.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_updatecheck.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/optionspage_updatecheck.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/settingsdialog.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/settings/settingsdialog.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/wxext/spinctrlex.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/wxext/spinctrlex.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/aboutdialog.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/aboutdialog.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/asksavepassworddialog.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/asksavepassworddialog.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/asyncrequestqueue.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/asyncrequestqueue.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/aui_notebook_ex.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/aui_notebook_ex.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/bookmarks_dialog.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/bookmarks_dialog.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/buildinfo.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/buildinfo.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/chmoddialog.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/chmoddialog.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/clearprivatedata.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/clearprivatedata.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/cmdline.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/cmdline.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/commandqueue.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/commandqueue.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/conditionaldialog.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/conditionaldialog.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/context_control.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/context_control.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/customheightlistctrl.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/customheightlistctrl.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/defaultfileexistsdlg.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/defaultfileexistsdlg.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/dialogex.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/dialogex.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/dndobjects.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/dndobjects.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/dragdropmanager.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/dragdropmanager.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/drop_target_ex.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/drop_target_ex.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/dropsource.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/dropsource.h)
-#list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/dropsource_mac.mm
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/edithandler.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/edithandler.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/encoding_converter.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/encoding_converter.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/export.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/export.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/file_utils.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/file_utils.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/fileexistsdlg.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/fileexistsdlg.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/filelist_statusbar.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/filelist_statusbar.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/filelistctrl.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/filelistctrl.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/FileZilla.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/filezilla.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/filezillaapp.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/filter_conditions_dialog.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/filter_conditions_dialog.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/filter_manager.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/filter_manager.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/filteredit.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/filteredit.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/fzputtygen_interface.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/fzputtygen_interface.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/graphics.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/graphics.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/import.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/import.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/infotext.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/infotext.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/inputdialog.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/inputdialog.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/led.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/led.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/list_search_panel.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/list_search_panel.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/listctrlex.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/listctrlex.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/listingcomparison.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/listingcomparison.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/local_recursive_operation.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/local_recursive_operation.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/locale_initializer.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/locale_initializer.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/LocalListView.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/LocalListView.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/LocalTreeView.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/LocalTreeView.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/loginmanager.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/loginmanager.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/Mainfrm.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/Mainfrm.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/manual_transfer.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/manual_transfer.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/menu_bar.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/menu_bar.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/msgbox.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/msgbox.h)
-#list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/netconfwizard.cpp)
-#list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/netconfwizard.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/option_change_event_handler.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/option_change_event_handler.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/Options.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/Options.h)
-#list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/osx_sandbox_userdirs.cpp)
-#list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/osx_sandbox_userdirs.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/overlay.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/overlay.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/power_management.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/power_management.h)
-#list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/power_management_osx.mm
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/queue.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/queue.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/queue_storage.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/queue_storage.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/QueueView.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/QueueView.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/queueview_failed.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/queueview_failed.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/queueview_successful.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/queueview_successful.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/quickconnectbar.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/quickconnectbar.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/recentserverlist.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/recentserverlist.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/recursive_operation_status.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/recursive_operation_status.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/remote_recursive_operation.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/remote_recursive_operation.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/RemoteListView.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/RemoteListView.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/RemoteTreeView.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/RemoteTreeView.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/renderer.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/renderer.h)
-#list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/search.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/search.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/serverdata.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/serverdata.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/sftp_crypt_info_dlg.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/sftp_crypt_info_dlg.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/sitemanager.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/sitemanager.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/sitemanager_controls.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/sitemanager_controls.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/sitemanager_dialog.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/sitemanager_dialog.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/sitemanager_site.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/sitemanager_site.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/sizeformatting.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/sizeformatting.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/speedlimits_dialog.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/speedlimits_dialog.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/splitter.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/splitter.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/state.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/state.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/statusbar.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/statusbar.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/statuslinectrl.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/statuslinectrl.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/StatusView.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/StatusView.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/storj_key_interface.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/storj_key_interface.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/systemimagelist.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/systemimagelist.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/textctrlex.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/textctrlex.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/themeprovider.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/themeprovider.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/timeformatting.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/timeformatting.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/toolbar.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/toolbar.h)
-#list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/toolbar.mm)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/treectrlex.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/treectrlex.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/update_dialog.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/update_dialog.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/verifycertdialog.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/verifycertdialog.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/verifyhostkeydialog.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/verifyhostkeydialog.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/view.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/view.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/viewheader.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/viewheader.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/volume_enumerator.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/volume_enumerator.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/welcome_dialog.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/welcome_dialog.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/window_state_manager.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/window_state_manager.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/wrapengine.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/wrapengine.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/wxfilesystem_blob_handler.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/wxfilesystem_blob_handler.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/xh_text_ex.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/xh_text_ex.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/xmlfunctions.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/xmlfunctions.h)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/xrc_helper.cpp)
-list(APPEND SRC_INTERFACE  ${CMAKE_CURRENT_SOURCE_DIR}/xrc_helper.h)
 
-add_library(wxInterface STATIC ${SRC_INTERFACE})
+add_executable(wxFileMan WIN32
+
+        "aboutdialog.cpp"
+        "asksavepassworddialog.cpp"
+        "asyncrequestqueue.cpp"
+        "aui_notebook_ex.cpp"
+        #auto_ascii_files.cpp
+        "bookmarks_dialog.cpp"
+        "buildinfo.cpp"
+        "chmoddialog.cpp"
+        "clearprivatedata.cpp"
+        "cmdline.cpp"
+        "commandqueue.cpp"
+        "conditionaldialog.cpp"
+        "context_control.cpp"
+        "customheightlistctrl.cpp"
+        "defaultfileexistsdlg.cpp"
+        "dialogex.cpp"
+        "dndobjects.cpp"
+        "dragdropmanager.cpp"
+        "drop_target_ex.cpp"
+        "edithandler.cpp"
+        "encoding_converter.cpp"
+        "export.cpp"
+        "file_utils.cpp"
+        "fileexistsdlg.cpp"
+        "filelist_statusbar.cpp"
+        "filelistctrl.cpp"
+        "FileZilla.cpp"
+        "filter_conditions_dialog.cpp"
+        "filter_manager.cpp"
+        "filteredit.cpp"
+        "fzputtygen_interface.cpp"
+        "graphics.cpp"
+        "import.cpp"
+        "infotext.cpp"
+        "inputdialog.cpp"
+        "led.cpp"
+        "list_search_panel.cpp"
+        "listctrlex.cpp"
+        "listingcomparison.cpp"
+        "local_recursive_operation.cpp"
+        "locale_initializer.cpp"
+        "LocalListView.cpp"
+        "LocalTreeView.cpp"
+        "loginmanager.cpp"
+        Mainfrm.cpp
+        "manual_transfer.cpp"
+        "menu_bar.cpp"
+        "msgbox.cpp"
+        "netconfwizard.cpp"
+        "option_change_event_handler.cpp"
+        "Options.cpp"
+        "overlay.cpp"
+        "power_management.cpp"
+        "queue.cpp"
+        "queue_storage.cpp"
+        "QueueView.cpp"
+        "queueview_failed.cpp"
+        "queueview_successful.cpp"
+        "quickconnectbar.cpp"
+        "recentserverlist.cpp"
+        "recursive_operation_status.cpp"
+        "remote_recursive_operation.cpp"
+        "RemoteListView.cpp"
+        "RemoteTreeView.cpp"
+        search.cpp
+        serverdata.cpp
+        "settings/optionspage.cpp"
+        "settings/optionspage_connection.cpp"
+        "settings/optionspage_connection_active.cpp"
+        "settings/optionspage_connection_ftp.cpp"
+        "settings/optionspage_connection_passive.cpp"
+        "settings/optionspage_connection_sftp.cpp"
+        "settings/optionspage_dateformatting.cpp"
+        "settings/optionspage_debug.cpp"
+        "settings/optionspage_edit.cpp"
+        "settings/optionspage_edit_associations.cpp"
+        "settings/optionspage_fileexists.cpp"
+        "settings/optionspage_filelists.cpp"
+        "settings/optionspage_filetype.cpp"
+        "settings/optionspage_ftpproxy.cpp"
+        "settings/optionspage_interface.cpp"
+        "settings/optionspage_language.cpp"
+        "settings/optionspage_logging.cpp"
+        "settings/optionspage_passwords.cpp"
+        "settings/optionspage_proxy.cpp"
+        "settings/optionspage_sizeformatting.cpp"
+        "settings/optionspage_themes.cpp"
+        "settings/optionspage_transfer.cpp"
+        "settings/optionspage_updatecheck.cpp"
+        "settings/settingsdialog.cpp"
+        "sftp_crypt_info_dlg.cpp"
+        "sitemanager.cpp"
+        "sitemanager_controls.cpp"
+        "sitemanager_dialog.cpp"
+        "sitemanager_site.cpp"
+        "sizeformatting.cpp"
+        "speedlimits_dialog.cpp"
+        splitter.cpp
+        state.cpp
+        "statusbar.cpp"
+        "statuslinectrl.cpp"
+        "StatusView.cpp"
+        "storj_key_interface.cpp"
+        "systemimagelist.cpp"
+        "textctrlex.cpp"
+        "themeprovider.cpp"
+        "timeformatting.cpp"
+        "toolbar.cpp"
+        "treectrlex.cpp"
+        "update_dialog.cpp"
+        "verifycertdialog.cpp"
+        "verifyhostkeydialog.cpp"
+        "view.cpp"
+        viewheader.cpp
+        volume_enumerator.cpp
+        welcome_dialog.cpp
+        window_state_manager.cpp
+        wrapengine.cpp
+        wxext/spinctrlex.cpp
+        wxfilesystem_blob_handler.cpp
+        xh_text_ex.cpp
+        xmlfunctions.cpp
+        xrc_helper.cpp
+        dropsource.cpp
+)
+
+#
+
+target_include_directories(wxFileMan PRIVATE
+    ${PROJECT_SOURCE_DIR}/src/include
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${PROJECT_SOURCE_DIR}/vendor/libfilezilla/lib
+)
+
+if(MSVC)
+
+endif()
+
+add_dependencies(wxFileMan commonui engine fz)
+
+target_compile_definitions(wxFileMan PRIVATE PACKAGE_VERSION=\"${PACKAGE_VERSION}\")
+
+target_link_libraries(wxFileMan PRIVATE
+
+    fz commonui engine pugixml wx gnutls nettle hogweed normaliz wsock32 odbc32
+    uxtheme oleacc ComCtl32 wxexpat wxpng wxzlib
+    odbccp32 comctl32 Netapi32 Winmm Ws2_32 mpr sqlite3 powrprof Shlwapi
+        engine_storj engine_sftp engine_ftp
+
+)
+
