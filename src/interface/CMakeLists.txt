@@ -196,7 +196,7 @@ add_executable(wxFileMan WIN32
         "remote_recursive_operation.cpp"
         "RemoteListView.cpp"
         "RemoteTreeView.cpp"
-        search.cpp
+        #search.cpp
         serverdata.cpp
         "settings/optionspage.cpp"
         "settings/optionspage_connection.cpp"
