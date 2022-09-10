@@ -256,6 +256,7 @@ add_executable(wxFileMan WIN32
         xmlfunctions.cpp
         xrc_helper.cpp
         dropsource.cpp
+        renderer.cpp
 )
 
 #

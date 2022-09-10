@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(wxFileMan)
 
-# set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 include(CPack)
 
@@ -16,6 +16,9 @@ string(TIMESTAMP vRelease "%y.%m.%d")
 string(REPLACE ".0" "." vRelease ${vRelease})
 #add_compile_definitions(RELEASE="${vRelease}")
 add_compile_definitions(FZ_MANUALUPDATECHECK)
+#add_compile_definitions(BUILDING_LIBFILEZILLA)
+add_compile_definitions(BUILDING_FILEZILLA)
+#add_compile_definitions(BUILDING_FZ_COMMONUI)
 
 set (PACKAGE_VERSION_MAJOR 1)
 set (PACKAGE_VERSION_MINOR 0)
@@ -24,6 +27,8 @@ set (PACKAGE_VERSION_NANO 1)
 string(TIMESTAMP vDateRelease "%Y%m%d%H%M")
 set (PACKAGE_VERSION_SUFFIX "build ${vDateRelease}")
 set (PACKAGE_VERSION "${PACKAGE_VERSION_MAJOR}.${PACKAGE_VERSION_MINOR}.${PACKAGE_VERSION_MICRO}.${PACKAGE_VERSION_NANO} ${PACKAGE_VERSION_SUFFIX}")
+#
+add_compile_definitions(PACKAGE_VERSION="${PACKAGE_VERSION}")
 
 if(NOT CMAKE_CONFIGURATION_TYPES)
     get_property(HAVE_MULTI_CONFIG_GENERATOR GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
@@ -49,6 +54,7 @@ elseif(MINGW)
     #add_compile_options("-fexceptions")
     #add_compile_options("-fno-strict-aliasing")
     #add_compile_options("-Wno-write-strings")
+    add_compile_options("-std=c++17")
     add_compile_options("-w")
 
     #add_compile_options("-ffunction-sections")

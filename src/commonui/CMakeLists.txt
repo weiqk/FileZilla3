@@ -27,6 +27,7 @@ set(Headers
 source_group("Headers" FILES ${Headers})
 
 set(Sources
+        auto_ascii_files.cpp
     "buildinfo.cpp"
     "cert_store.cpp"
     "chmod_data.cpp"
@@ -43,7 +44,8 @@ set(Sources
     "updater.cpp"
     "updater_cert.cpp"
     "xml_cert_store.cpp"
-    "xml_file.cpp"
+    xml_file.cpp
+        misc.cpp
 )
 source_group("Sources" FILES ${Sources})
 
